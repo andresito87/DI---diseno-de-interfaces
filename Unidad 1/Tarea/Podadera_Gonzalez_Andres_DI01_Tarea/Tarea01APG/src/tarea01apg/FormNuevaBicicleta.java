@@ -1,6 +1,13 @@
 package tarea01apg;
 
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.NumberFormat;
+import javax.swing.ComboBoxEditor;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
@@ -17,6 +24,12 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
     public FormNuevaBicicleta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        desabilitarInputsAlIniciarFormulario();
+        anadirEventosPersonalizados(
+                this.comboboxTamanioRueda,
+                this.comboboxMaterialCuadroTrail,
+                this.comboboxMaterialCuadroCarretera,
+                this.comboboxTipoFreno);
     }
 
     /**
@@ -51,7 +64,7 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         labelMaterialCuadroCarretera = new javax.swing.JLabel();
         comboboxMaterialCuadroCarretera = new javax.swing.JComboBox<>();
         labelMaterialCuadroCarretera1 = new javax.swing.JLabel();
-        comboboxMaterialCuadroCarretera1 = new javax.swing.JComboBox<>();
+        comboboxTipoFreno = new javax.swing.JComboBox<>();
         etiquetaProveedor = new javax.swing.JLabel();
         etiquetaFechaAlta = new javax.swing.JLabel();
         etiquetaTelefonoContacto = new javax.swing.JLabel();
@@ -80,6 +93,11 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         etiquetaCodigo.setToolTipText("Codigo de la bicicleta");
 
         campoTextoCodigo.setToolTipText("Introduce el código de la bicicleta");
+        campoTextoCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTextoCodigoKeyTyped(evt);
+            }
+        });
 
         etiquetaModelo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         etiquetaModelo.setForeground(new java.awt.Color(0, 0, 0));
@@ -87,6 +105,11 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         etiquetaModelo.setToolTipText("Modelo de la bicicleta");
 
         campoTextoModelo.setToolTipText("Introduce el modelo la bicicleta");
+        campoTextoModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTextoModeloKeyTyped(evt);
+            }
+        });
 
         labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         labelTitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -94,6 +117,11 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         labelTitulo.setToolTipText("Formulario para añadir una bicicleta");
 
         campoTextoMarca.setToolTipText("Introduce la marca de la bicicleta");
+        campoTextoMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTextoMarcaKeyTyped(evt);
+            }
+        });
 
         etiquetaMarca.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         etiquetaMarca.setForeground(new java.awt.Color(0, 0, 0));
@@ -192,8 +220,8 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         labelMaterialCuadroCarretera1.setText("Tipo de freno:");
         labelMaterialCuadroCarretera1.setToolTipText("Tipo de freno de bicicleta tipo carretera");
 
-        comboboxMaterialCuadroCarretera1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Frenos de disco", "Pastillas de freno" }));
-        comboboxMaterialCuadroCarretera1.setToolTipText("Selecciona tipo de frenos de bicicleta tipo carretera");
+        comboboxTipoFreno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Frenos de disco", "Pastillas de freno" }));
+        comboboxTipoFreno.setToolTipText("Selecciona tipo de frenos de bicicleta tipo carretera");
 
         javax.swing.GroupLayout panelTipoLayout = new javax.swing.GroupLayout(panelTipo);
         panelTipo.setLayout(panelTipoLayout);
@@ -228,8 +256,8 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(labelMaterialCuadroCarretera1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboboxMaterialCuadroCarretera1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(comboboxTipoFreno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         panelTipoLayout.setVerticalGroup(
             panelTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +285,7 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
                     .addComponent(labelMaterialCuadroCarretera)
                     .addComponent(comboboxMaterialCuadroCarretera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMaterialCuadroCarretera1)
-                    .addComponent(comboboxMaterialCuadroCarretera1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboboxTipoFreno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -280,6 +308,11 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         campoTextoProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoTextoProveedorActionPerformed(evt);
+            }
+        });
+        campoTextoProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTextoProveedorKeyTyped(evt);
             }
         });
 
@@ -319,6 +352,11 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         botonGuardar.setText("Guardar");
         botonGuardar.setToolTipText("Pulsa este boton para almacenar los datos introducidos en el formulario");
         botonGuardar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 0), 3, true));
+        botonGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonGuardarMouseClicked(evt);
+            }
+        });
 
         botonSalir.setBackground(new java.awt.Color(204, 0, 0));
         botonSalir.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -326,6 +364,11 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         botonSalir.setText("Salir");
         botonSalir.setToolTipText("Pulsa este boton para salir del formulario");
         botonSalir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 0), 3, true));
+        botonSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSalirMouseClicked(evt);
+            }
+        });
 
         spinnerFechaAlta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         spinnerFechaAlta.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1728817280839L), null, null, java.util.Calendar.DAY_OF_MONTH));
@@ -341,18 +384,28 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         etiquetaUbicacion.setText("Ubicación:");
         etiquetaUbicacion.setToolTipText("Ubicación de la bicicleta");
 
-        comboboxUbicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Almacén", "Tienda", "Taller" }));
+        comboboxUbicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Almacén", "Tienda", "Taller" }));
         comboboxUbicacion.setToolTipText("Selecciona la ubicación de la bicicleta");
+        comboboxUbicacion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboboxUbicacionItemStateChanged(evt);
+            }
+        });
 
         etiquetaPVP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         etiquetaPVP.setForeground(new java.awt.Color(0, 0, 0));
         etiquetaPVP.setText("P.V.P. (€):");
-        etiquetaPVP.setToolTipText("Precio venta al público de la bicicleta");
+        etiquetaPVP.setToolTipText("Precio venta al público de la bicicleta (sólo disponible desde el almacén)");
 
         campoTextoPVP.setToolTipText("Introduce el precio venta al público de la bicicleta (máximo 30.000)");
         campoTextoPVP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoTextoPVPActionPerformed(evt);
+            }
+        });
+        campoTextoPVP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTextoPVPKeyTyped(evt);
             }
         });
 
@@ -394,20 +447,6 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(panelTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelPrincipalLayout.createSequentialGroup()
-                            .addComponent(etiquetaCodigo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoTextoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(etiquetaModelo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoTextoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(etiquetaMarca)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoTextoMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelPrincipalLayout.createSequentialGroup()
@@ -427,19 +466,32 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
                             .addGroup(panelPrincipalLayout.createSequentialGroup()
                                 .addComponent(etiquetaProveedor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoTextoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(campoTextoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPrincipalLayout.createSequentialGroup()
+                            .addComponent(etiquetaCodigo)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(campoTextoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(etiquetaModelo)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(campoTextoModelo)
+                            .addGap(18, 18, 18)
+                            .addComponent(etiquetaMarca)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(campoTextoMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelTipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(89, 89, 89))
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(197, 197, 197)
-                        .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(panelUbicacionPVP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(87, 87, 87)
+                .addComponent(panelUbicacionPVP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGap(166, 166, 166)
+                .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(187, 187, 187))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,12 +582,18 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
 
     private void campoTextoTelefonoContactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoTelefonoContactoKeyTyped
 
+        // no permite que se introduzcan mas de 9 caracteres
+        if (this.campoTextoTelefonoContacto.getText().length() >= 9) {
+            evt.consume();
+        }
+
         // obtengo el caracter introducido
         char c = evt.getKeyChar();
         // si el carácter no es un número, se ignora
         if (!Character.isDigit(c)) {
             evt.consume(); // evita que el carácter no numérico se introduzca
         }
+
     }//GEN-LAST:event_campoTextoTelefonoContactoKeyTyped
 
     private void campoTextoPrecioCosteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoPrecioCosteKeyTyped
@@ -562,6 +620,7 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
                 if (valorIntroducido > 30000) {
                     evt.consume();  // No permitir valores mayores a 30.000
                     JOptionPane.showMessageDialog(null, "El valor no puede superar los 30.000 €.");
+                    this.campoTextoPrecioCoste.setText("");
                 }
             } catch (NumberFormatException e) {
                 // En caso de error en la conversión, cancelar la acción
@@ -570,6 +629,161 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_campoTextoPrecioCosteKeyTyped
+
+    private void campoTextoCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoCodigoKeyTyped
+        // Obtenemos el carácter que fue tecleado
+        char c = evt.getKeyChar();
+
+        // Verificamos si el carácter es alfanumérico (letra o dígito)
+        if (!Character.isLetterOrDigit(c)) {
+            evt.consume(); // No permite caracteres que no sean letras o dígitos
+        }
+
+        // Validamos que el código no tenga más de 10 caracteres de longitud
+        if (this.campoTextoCodigo.getText().length() >= 10) {
+            evt.consume(); // Evita que el usuario escriba más de 10 caracteres
+        }
+    }//GEN-LAST:event_campoTextoCodigoKeyTyped
+
+    private void campoTextoModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoModeloKeyTyped
+        // Obtenemos el carácter que fue tecleado
+        char c = evt.getKeyChar();
+
+        // Verificamos si el carácter es alfanumérico (letra o dígito)
+        if (!Character.isLetterOrDigit(c)) {
+            evt.consume(); // No permite caracteres que no sean letras o dígitos
+        }
+
+        // Validamos que el modelo no tenga más de 15 caracteres de longitud
+        if (this.campoTextoModelo.getText().length() >= 15) {
+            evt.consume(); // Evita que el usuario escriba más de 10 caracteres
+        }
+    }//GEN-LAST:event_campoTextoModeloKeyTyped
+
+    private void campoTextoMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoMarcaKeyTyped
+        // Obtenemos el carácter que fue tecleado
+        char c = evt.getKeyChar();
+
+        // Verificamos si el carácter es una letra
+        if (!Character.isLetter(c)) {
+            evt.consume(); // No permite caracteres que no sean letras
+        }
+
+        // Validamos que la marca no tenga más de 10 caracteres de longitud
+        if (this.campoTextoMarca.getText().length() >= 10) {
+            evt.consume(); // Evita que el usuario escriba más de 10 caracteres
+        }
+    }//GEN-LAST:event_campoTextoMarcaKeyTyped
+
+    private void campoTextoProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoProveedorKeyTyped
+        // Obtenemos el carácter que fue tecleado
+        char c = evt.getKeyChar();
+
+        // Verificamos si el carácter es una letra
+        if (!Character.isLetter(c)) {
+            evt.consume(); // No permite caracteres que no sean letras
+        }
+
+        // Validamos que el proveedor no tenga más de 10 caracteres de longitud
+        if (this.campoTextoMarca.getText().length() >= 10) {
+            evt.consume(); // Evita que el usuario escriba más de 10 caracteres
+        }
+    }//GEN-LAST:event_campoTextoProveedorKeyTyped
+
+    private void comboboxUbicacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboboxUbicacionItemStateChanged
+        // si en el combobox han marcado almacén, opción 1, se activa el campo PVP
+        if (this.comboboxUbicacion.getSelectedIndex() == 1) {
+            this.campoTextoPVP.setEnabled(true);
+        } else {
+            // sino desactivo el campo PVP y borro su contenido, suponemos que el usuario ha cambiado de opinión
+            this.campoTextoPVP.setEnabled(false);
+            this.campoTextoPVP.setText("");
+        }
+    }//GEN-LAST:event_comboboxUbicacionItemStateChanged
+
+    private void campoTextoPVPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoPVPKeyTyped
+        // Obtenemos el carácter que fue tecleado
+        char c = evt.getKeyChar();
+
+        // Verificamos si el carácter no es un número
+        if (!Character.isDigit(c)) {
+            evt.consume(); // No permite caracteres que no sean dígitos
+        }
+    }//GEN-LAST:event_campoTextoPVPKeyTyped
+
+    private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
+        // al pulsar el botón de guardar
+        if (comprobarEstadoDeGuardadoCorrecto()) {
+            JOptionPane.showMessageDialog(null, "Registro guardado con éxito");
+            // TODO: limpiar todos los campos 
+        } else {
+            JOptionPane.showMessageDialog(null, "Intento de guardado Fallido. Hay campos vacíos, rellénalos y vuelve a intentarlo");
+        }
+    }//GEN-LAST:event_botonGuardarMouseClicked
+
+    private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSalirMouseClicked
+        // TODO: al pulsar el boton de salir
+    }//GEN-LAST:event_botonSalirMouseClicked
+
+    private void desabilitarInputsAlIniciarFormulario() {
+        this.comboboxTamanioRueda.setEnabled(false);
+        this.comboboxMaterialCuadroTrail.setEnabled(false);
+        this.comboboxMaterialCuadroCarretera.setEnabled(false);
+        this.comboboxTipoFreno.setEnabled(false);
+        this.campoTextoPVP.setEnabled(false);
+    }
+
+    private void anadirEventosPersonalizados(
+            JComboBox tamanioRuedas,
+            JComboBox materialTrail,
+            JComboBox materialCarretera,
+            JComboBox tipoFrenos) {
+        // Añadir un ItemListener al radio boton de trail
+        this.radioBotonTrail.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    // Si el radio botón se selecciona
+                    tamanioRuedas.setEnabled(true);
+                    materialTrail.setEnabled(true);
+                } else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    // Si el radio botón se deselecciona
+                    tamanioRuedas.setEnabled(false);
+                    materialTrail.setEnabled(false);
+                }
+            }
+        });
+        // Añadir un ItemListener al radio boton de carretera
+        this.radioBotonCarretera.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    // Si el radio botón se selecciona
+                    tipoFrenos.setEnabled(true);
+                    materialCarretera.setEnabled(true);
+                } else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    // Si el radio botón se deselecciona
+                    tipoFrenos.setEnabled(false);
+                    materialCarretera.setEnabled(false);
+                }
+            }
+        });
+    }
+
+    // funcion que comprueba que todos los inputs tengan un valor y no estén vacíos
+    private boolean comprobarEstadoDeGuardadoCorrecto() {
+        return this.campoTextoCodigo.getText().length() > 0
+                && this.campoTextoModelo.getText().length() > 0
+                && this.campoTextoMarca.getText().length() > 0
+                && this.grupoBotonesTipo.getSelection() != null
+                && this.campoTextoProveedor.getText().length() > 0
+                && this.campoTextoTelefonoContacto.getText().length() > 0
+                && this.campoTextoPrecioCoste.getText().length() > 0
+                && ((this.comboboxUbicacion.getSelectedIndex() != 0
+                && this.comboboxUbicacion.getSelectedIndex() != 1)
+                || (this.comboboxUbicacion.getSelectedIndex() == 1
+                && this.campoTextoPVP.getText().length() > 0));
+    }
 
     /**
      * @param args the command line arguments
@@ -624,9 +838,9 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField campoTextoProveedor;
     private javax.swing.JFormattedTextField campoTextoTelefonoContacto;
     private javax.swing.JComboBox<String> comboboxMaterialCuadroCarretera;
-    private javax.swing.JComboBox<String> comboboxMaterialCuadroCarretera1;
     private javax.swing.JComboBox<String> comboboxMaterialCuadroTrail;
     private javax.swing.JComboBox<String> comboboxTamanioRueda;
+    private javax.swing.JComboBox<String> comboboxTipoFreno;
     private javax.swing.JComboBox<String> comboboxUbicacion;
     private javax.swing.JLabel etiquetaCodigo;
     private javax.swing.JLabel etiquetaFechaAlta;
@@ -654,4 +868,5 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
     private javax.swing.JRadioButton radioBotonTrail;
     private javax.swing.JSpinner spinnerFechaAlta;
     // End of variables declaration//GEN-END:variables
+
 }

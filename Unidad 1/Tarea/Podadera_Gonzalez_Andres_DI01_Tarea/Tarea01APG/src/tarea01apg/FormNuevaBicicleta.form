@@ -57,22 +57,6 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="panelTipo" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="etiquetaCodigo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="campoTextoCodigo" min="-2" pref="112" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="etiquetaModelo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="campoTextoModelo" min="-2" pref="112" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="etiquetaMarca" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="campoTextoMarca" min="-2" pref="112" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -100,23 +84,36 @@
                               </Group>
                           </Group>
                       </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="etiquetaCodigo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="campoTextoCodigo" min="-2" pref="112" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="etiquetaModelo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="campoTextoModelo" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="etiquetaMarca" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="campoTextoMarca" min="-2" pref="105" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="panelTipo" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
-                          <Component id="botonGuardar" min="-2" pref="94" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="197" max="-2" attributes="0"/>
-                          <Component id="botonSalir" min="-2" pref="81" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-                          <Component id="panelUbicacionPVP" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                  <Component id="panelUbicacionPVP" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
+                  <Component id="botonGuardar" min="-2" pref="94" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="botonSalir" min="-2" pref="81" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -186,6 +183,9 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="Introduce el c&#xf3;digo de la bicicleta"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoTextoCodigoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="etiquetaModelo">
           <Properties>
@@ -203,6 +203,9 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="Introduce el modelo la bicicleta"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoTextoModeloKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelTitulo">
           <Properties>
@@ -220,6 +223,9 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="Introduce la marca de la bicicleta"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoTextoMarcaKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="etiquetaMarca">
           <Properties>
@@ -286,10 +292,10 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="labelMaterialCuadroCarretera1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="comboboxMaterialCuadroCarretera1" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboboxTipoFreno" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="74" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -320,7 +326,7 @@
                           <Component id="labelMaterialCuadroCarretera" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="comboboxMaterialCuadroCarretera" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelMaterialCuadroCarretera1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="comboboxMaterialCuadroCarretera1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboboxTipoFreno" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="27" max="32767" attributes="0"/>
                   </Group>
@@ -533,7 +539,7 @@
                 <Property name="toolTipText" type="java.lang.String" value="Tipo de freno de bicicleta tipo carretera"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="comboboxMaterialCuadroCarretera1">
+            <Component class="javax.swing.JComboBox" name="comboboxTipoFreno">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
@@ -591,6 +597,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoTextoProveedorActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoTextoProveedorKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="campoTextoTelefonoContacto">
@@ -647,6 +654,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botonGuardarMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botonSalir">
           <Properties>
@@ -669,6 +679,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botonSalirMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="spinnerFechaAlta">
           <Properties>
@@ -749,14 +762,18 @@
             <Component class="javax.swing.JComboBox" name="comboboxUbicacion">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Almac&#xe9;n"/>
-                    <StringItem index="1" value="Tienda"/>
-                    <StringItem index="2" value="Taller"/>
+                  <StringArray count="4">
+                    <StringItem index="0" value=""/>
+                    <StringItem index="1" value="Almac&#xe9;n"/>
+                    <StringItem index="2" value="Tienda"/>
+                    <StringItem index="3" value="Taller"/>
                   </StringArray>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Selecciona la ubicaci&#xf3;n de la bicicleta"/>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="comboboxUbicacionItemStateChanged"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -770,7 +787,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="P.V.P. (&#x20ac;):"/>
-                <Property name="toolTipText" type="java.lang.String" value="Precio venta al p&#xfa;blico de la bicicleta"/>
+                <Property name="toolTipText" type="java.lang.String" value="Precio venta al p&#xfa;blico de la bicicleta (s&#xf3;lo disponible desde el almac&#xe9;n)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="campoTextoPVP">
@@ -779,6 +796,7 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoTextoPVPActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoTextoPVPKeyTyped"/>
               </Events>
             </Component>
           </SubComponents>

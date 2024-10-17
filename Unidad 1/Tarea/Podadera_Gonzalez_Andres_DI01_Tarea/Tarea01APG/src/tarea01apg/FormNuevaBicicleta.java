@@ -1,16 +1,11 @@
 package tarea01apg;
 
-import java.awt.TextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.NumberFormat;
-import javax.swing.ComboBoxEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -19,7 +14,7 @@ import javax.swing.text.NumberFormatter;
 public class FormNuevaBicicleta extends javax.swing.JDialog {
 
     /**
-     * Creates new form FormNuevaBicicleta
+     * Crea nuevo formulario FormNuevaBicicleta
      */
     public FormNuevaBicicleta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -371,9 +366,9 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         });
 
         spinnerFechaAlta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        spinnerFechaAlta.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1728817280839L), null, null, java.util.Calendar.DAY_OF_MONTH));
+        spinnerFechaAlta.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null, java.util.Calendar.DAY_OF_MONTH));
         spinnerFechaAlta.setToolTipText("Selecciona la fecha de alta de la bicicleta");
-        spinnerFechaAlta.setEditor(new javax.swing.JSpinner.DateEditor(spinnerFechaAlta, "dd/mm/yyyy"));
+        spinnerFechaAlta.setEditor(new javax.swing.JSpinner.DateEditor(spinnerFechaAlta, "dd/MM/yyyy"));
 
         panelUbicacionPVP.setBackground(new java.awt.Color(153, 0, 153));
         panelUbicacionPVP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(153, 153, 153), new java.awt.Color(153, 153, 153), new java.awt.Color(153, 153, 153), new java.awt.Color(153, 153, 153)));
@@ -712,17 +707,89 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
     }//GEN-LAST:event_campoTextoPVPKeyTyped
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
-        // al pulsar el botón de guardar
-        if (comprobarEstadoDeGuardadoCorrecto()) {
-            JOptionPane.showMessageDialog(null, "Registro guardado con éxito");
-            // TODO: limpiar todos los campos 
+
+        StringBuilder mensajeErrorSalidaAlUsuario = new StringBuilder();
+        boolean sonCorrectosTodosLosCampos
+                = this.esCorrectoCampoTextoCodigo()
+                && this.esCorrectoCampoTextoMarca()
+                && this.esCorrectoCampoTextoModelo()
+                && this.estaSeleccionadoAlgunTipoBicicleta()
+                && this.esCorrectoCampoTextoPrecioCoste()
+                && this.esCorrectoCampoTextoProveedor()
+                && this.esCorrectoCampoTextoTelefonoContacto()
+                && this.esCorrectoComboboxUbicacion()
+                && this.esCorrectoCampoTextoPVP();
+
+        if (!sonCorrectosTodosLosCampos) {
+            if (!this.esCorrectoCampoTextoCodigo()) {
+                mensajeErrorSalidaAlUsuario.append("El código no es válido.\n");
+            }
+
+            if (!this.esCorrectoCampoTextoMarca()) {
+                mensajeErrorSalidaAlUsuario.append("La marca no es válida.\n");
+            }
+
+            if (!this.esCorrectoCampoTextoModelo()) {
+                mensajeErrorSalidaAlUsuario.append("El modelo no es válido.\n");
+            }
+
+            if (!this.estaSeleccionadoAlgunTipoBicicleta()) {
+                mensajeErrorSalidaAlUsuario.append("Debe seleccionar algún tipo de bicicleta.\n");
+            }
+
+            if (!this.esCorrectoCampoTextoPrecioCoste()) {
+                mensajeErrorSalidaAlUsuario.append("El precio de coste no es válido.\n");
+            }
+
+            if (!this.esCorrectoCampoTextoProveedor()) {
+                mensajeErrorSalidaAlUsuario.append("El proveedor no es válido.\n");
+            }
+
+            if (!this.esCorrectoCampoTextoTelefonoContacto()) {
+                mensajeErrorSalidaAlUsuario.append("El teléfono de contacto no es válido.\n");
+            }
+
+            if (!this.esCorrectoComboboxUbicacion()) {
+                mensajeErrorSalidaAlUsuario.append("La ubicación no es válida.\n");
+
+                if (!this.esCorrectoCampoTextoPVP()) {
+                    mensajeErrorSalidaAlUsuario.append("El P.V.P. no es válido.\n");
+                }
+            }
+
+            JOptionPane.showMessageDialog(null, mensajeErrorSalidaAlUsuario.toString());
+            
         } else {
-            JOptionPane.showMessageDialog(null, "Intento de guardado Fallido. Hay campos vacíos, rellénalos y vuelve a intentarlo");
+            JOptionPane.showMessageDialog(null, "Registro guardado con éxito");
+            this.limpiarYResetearFormulario();
         }
     }//GEN-LAST:event_botonGuardarMouseClicked
 
     private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSalirMouseClicked
-        // TODO: al pulsar el boton de salir
+
+        // Verificar si el usuario ha introducido algún dato (puedes ajustar esta condición según sea necesario)
+        if (this.hayDatosIntroduciosEnElFormulario()) {
+            // Mostrar el cuadro de diálogo de confirmación
+            int respuesta = JOptionPane.showConfirmDialog(
+                    null,
+                    "<html>¡¡¡ Atención hay información en el formulario que no se podrá recuperar !!!<br><center>¿Está seguro que desea salir?</center></html>",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            // Verificar la respuesta del usuario
+            if (respuesta == JOptionPane.YES_OPTION) {
+                // Cerrar el cuadro de diálogo actual y volver al formulario principal
+                this.dispose();  // Cierra el JDialog
+            } else {
+                // Si elige "No", no se hace nada, la interfaz se queda como está
+            }
+        } else {
+            // Si no hay datos introducidos, simplemente cerrar
+            this.dispose();  // Cierra el JDialog
+        }
+
     }//GEN-LAST:event_botonSalirMouseClicked
 
     private void desabilitarInputsAlIniciarFormulario() {
@@ -770,19 +837,89 @@ public class FormNuevaBicicleta extends javax.swing.JDialog {
         });
     }
 
-    // funcion que comprueba que todos los inputs tengan un valor y no estén vacíos
-    private boolean comprobarEstadoDeGuardadoCorrecto() {
-        return this.campoTextoCodigo.getText().length() > 0
-                && this.campoTextoModelo.getText().length() > 0
-                && this.campoTextoMarca.getText().length() > 0
-                && this.grupoBotonesTipo.getSelection() != null
-                && this.campoTextoProveedor.getText().length() > 0
-                && this.campoTextoTelefonoContacto.getText().length() > 0
-                && this.campoTextoPrecioCoste.getText().length() > 0
-                && ((this.comboboxUbicacion.getSelectedIndex() != 0
-                && this.comboboxUbicacion.getSelectedIndex() != 1)
-                || (this.comboboxUbicacion.getSelectedIndex() == 1
-                && this.campoTextoPVP.getText().length() > 0));
+    /*==========================================================================
+    Funciones que comprueban el estado correcto de cada campo del formulario
+    ==========================================================================*/
+    private boolean esCorrectoCampoTextoCodigo() {
+        return this.campoTextoCodigo.getText().length() > 0;
+    }
+
+    private boolean esCorrectoCampoTextoModelo() {
+        return this.campoTextoModelo.getText().length() > 0;
+    }
+
+    private boolean esCorrectoCampoTextoMarca() {
+        return this.campoTextoMarca.getText().length() > 0;
+    }
+
+    private boolean estaSeleccionadoAlgunTipoBicicleta() {
+        return this.grupoBotonesTipo.getSelection() != null;
+    }
+
+    private boolean esCorrectoCampoTextoProveedor() {
+        return this.campoTextoProveedor.getText().length() > 0;
+    }
+
+    private boolean esCorrectoCampoTextoTelefonoContacto() {
+        return this.campoTextoTelefonoContacto.getText().length() > 0;
+    }
+
+    private boolean esCorrectoCampoTextoPrecioCoste() {
+        return this.campoTextoPrecioCoste.getText().length() > 0;
+    }
+
+    private boolean esCorrectoComboboxUbicacion() {
+        return this.comboboxUbicacion.getSelectedIndex() != 0;
+    }
+
+    private boolean esCorrectoCampoTextoPVP() {
+        // Si la ubicación es "Almacén" (índice 1), PVP debe estar lleno
+        if (this.comboboxUbicacion.getSelectedIndex() == 1) {
+            return this.campoTextoPVP.getText().length() > 0;
+        }
+        // Si la ubicación es diferente a "Almacén", no es necesario validar PVP
+        return true;
+    }
+
+    private void limpiarYResetearFormulario() {
+        this.campoTextoCodigo.setText("");
+        this.campoTextoMarca.setText("");
+        this.campoTextoModelo.setText("");
+        this.campoTextoPVP.setText("");
+        this.campoTextoPrecioCoste.setText("");
+        this.campoTextoProveedor.setText("");
+        this.campoTextoTelefonoContacto.setText("");
+        this.grupoBotonesTipo.clearSelection();
+        this.comboboxUbicacion.setSelectedIndex(0);
+        this.desabilitarInputsAlIniciarFormulario();
+        this.colocarFechaDeAltaAFechaDeHoy();
+        this.comboboxMaterialCuadroTrail.setSelectedIndex(0);
+        this.comboboxMaterialCuadroCarretera.setSelectedIndex(0);
+        this.comboboxTamanioRueda.setSelectedIndex(0);
+        this.comboboxTipoFreno.setSelectedIndex(0);
+    }
+
+    private void colocarFechaDeAltaAFechaDeHoy() {
+        // Obtener la fecha de hoy
+        java.util.Date fechaHoy = new java.util.Date();
+
+        // Establecer la fecha en el JSpinner
+        this.spinnerFechaAlta.setValue(fechaHoy);
+
+        // Configurar el editor del spinner para asegurarnos que muestre la fecha completa
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinnerFechaAlta, "dd/MM/yyyy");
+        this.spinnerFechaAlta.setEditor(editor);
+    }
+
+    private boolean hayDatosIntroduciosEnElFormulario() {
+        return !this.campoTextoCodigo.getText().isEmpty()
+                || !this.campoTextoMarca.getText().isEmpty()
+                || !this.campoTextoModelo.getText().isEmpty()
+                || !this.campoTextoPrecioCoste.getText().isEmpty()
+                || !this.campoTextoProveedor.getText().isEmpty()
+                || !this.campoTextoTelefonoContacto.getText().isEmpty()
+                || this.estaSeleccionadoAlgunTipoBicicleta()
+                || this.comboboxUbicacion.getSelectedIndex() != 0;
     }
 
     /**
